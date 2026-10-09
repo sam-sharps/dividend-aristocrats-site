@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dividend Aristocrats</title>
+  <link rel="stylesheet" href="styles.css"><script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#results">Skip to the table</a>
+<main class="app">
+  <header class="app-header">
+    <div class="title-line"><h1>Dividend Aristocrats</h1><span id="as-of">Loading analysis…</span></div>
+    <nav class="downloads" aria-label="Downloads"><a href="analysis.csv" download>CSV</a><a href="report.pdf" download>Printable report (PDF)</a></nav>
+  </header>
+  <p class="report-note">This table is the interactive analysis. The PDF includes all 66 companies, both periods and source notes.</p>
+  <div id="error" role="alert" hidden></div>
+  <div id="analysis" hidden>
+    <form class="toolbar" aria-label="Table controls" onsubmit="return false">
+      <div class="period-control"><span id="period-label">Period</span><div id="periods" role="group" aria-labelledby="period-label"></div></div>
+      <label class="search-control"><span class="sr-only">Find a company or ticker</span><input id="search" type="search" placeholder="Company or ticker" autocomplete="off"></label>
+      <label class="sector-control"><span class="sr-only">Sector</span><select id="sector"><option value="all">All sectors</option></select></label>
+      <label class="condition-control"><span class="sr-only">Growth condition</span><select id="condition"><option value="all">All growth conditions</option><option value="both">Revenue and EPS increased</option><option value="revenue">Revenue did not increase</option><option value="eps">EPS did not increase</option><option value="short-history">Shorter history</option></select></label>
+      <button id="reset" type="button" class="reset">Reset filters</button>
+    </form>
+    <div class="table-caption"><p id="comparison-note"></p><p id="result-count" role="status" aria-live="polite"></p></div>
+    <div id="results" class="table-scroll" role="region" aria-label="Sortable company comparison" tabindex="0">
+      <table class="results-table">
+        <caption class="sr-only">Dividend Aristocrats: cumulative revenue and diluted continuing-operations EPS changes. Select column headings to sort or a company to inspect its sources.</caption>
+        <thead><tr>
+          <th scope="col" data-key="ticker"><button type="button" data-sort="ticker">Ticker<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" data-key="name"><button type="button" data-sort="name">Company<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" data-key="years"><button type="button" data-sort="years">Fiscal years<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" class="numeric" data-key="revenueBase"><button type="button" data-sort="revenueBase">Rev start ($B)<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" class="numeric" data-key="revenueEnd"><button type="button" data-sort="revenueEnd">Rev end ($B)<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" class="numeric" data-key="revenueGrowth"><button type="button" data-sort="revenueGrowth">Rev change<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" class="numeric" data-key="epsBase"><button type="button" data-sort="epsBase">EPS start ($)<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" class="numeric" data-key="epsEnd"><button type="button" data-sort="epsEnd">EPS end ($)<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" class="numeric" data-key="epsGrowth"><button type="button" data-sort="epsGrowth">EPS change<span class="sort-mark" aria-hidden="true"></span></button></th>
+          <th scope="col" data-key="reason"><button type="button" data-sort="reason">Growth result<span class="sort-mark" aria-hidden="true"></span></button></th>
+        </tr></thead>
+        <tbody id="companies"></tbody>
+      </table>
+      <p id="empty" hidden>No companies match these filters.</p>
+    </div>
+    <p class="table-note">Cumulative endpoint changes, not growth in every year. Shorter histories use the years shown. Select a company for figures and sources; select a column heading to sort. “—” means a percentage is not meaningful or data is unavailable.</p>
+    <details class="methodology"><summary>Method &amp; source notes</summary><ul id="methodology"></ul><h2>Universe and source references</h2><div id="sources"></div></details>
+  </div>
+</main>
+</body>
+</html>
